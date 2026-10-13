@@ -3,6 +3,7 @@ from sqlalchemy import (
     Column,
     DateTime,
     ForeignKey,
+    Index,
     Integer,
     String,
     UniqueConstraint,
@@ -33,4 +34,5 @@ class Seat(Base):
     __table_args__ = (
         UniqueConstraint("event_id", "seat_number", name="uq_seats_event_seat_number"),
         CheckConstraint("status IN ('free', 'reserved')", name="ck_seats_status"),
+        Index("ix_seats_event_id_status", "event_id", "status"),
     )
